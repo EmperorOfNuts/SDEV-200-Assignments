@@ -1,0 +1,21 @@
+┌─────────────────────────────────────┐  extends  ┌─────────────────────────────────────┐
+│      <<abstract>>                   │──────────▶│           Triangle                  │
+│      GeometricObject                │           │                                     │
+├─────────────────────────────────────┤           ├─────────────────────────────────────┤
+│ - color: String                     │           │ - side1: double = 1.0               │
+│ - filled: boolean                   │           │ - side2: double = 1.0               │
+├─────────────────────────────────────┤           │ - side3: double = 1.0               │
+│ + GeometricObject()                 │           ├─────────────────────────────────────┤
+│ + GeometricObject(String, boolean)  │           │ + Triangle()                        │
+│ + getColor(): String                │           │ + Triangle(double, double, double,  │
+│ + setColor(String): void            │           │   String, boolean)                  │
+│ + isFilled(): boolean               │           │ + getSide1(): double                │
+│ + setFilled(boolean): void          │           │ + getSide2(): double                │
+│ + getArea(): double                 │           │ + getSide3(): double                │
+│ + getPerimeter(): double            │           │ + setSide1(double): void            │
+└─────────────────────────────────────┘           │ + setSide2(double): void            │
+                                                  │ + setSide3(double): void            │
+                                                  │ + getArea(): double                 │
+                                                  │ + getPerimeter(): double            │
+                                                  │ + toString(): String                │
+                                                  └─────────────────────────────────────┘

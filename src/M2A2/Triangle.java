@@ -7,9 +7,8 @@ public class Triangle extends GeometricObject {
     public Triangle() {}
 
     public Triangle(double inSide1, double inSide2, double inSide3, String inColor, boolean inFilled) {
+        super(inColor, inFilled);
         this.side1 = inSide1; this.side2 = inSide2; this.side3 = inSide3;
-        setColor(inColor);
-        setFilled(inFilled);
     }
 
     public double getArea() {

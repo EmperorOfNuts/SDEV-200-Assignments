@@ -1,0 +1,18 @@
+┌───────────────────────────────────────────────┐
+│                    MyDate                     │
+├───────────────────────────────────────────────┤
+│ - day: int                                    │
+│ - month: int                                  │
+│ - year: int                                   │
+├───────────────────────────────────────────────┤
+│ + MyDate()                                    │
+│ + MyDate(long)                                │
+│ + MyDate(int, int, int)                       │
+│ + setDate(): void                             │
+│ + getDay(): int                               │
+│ + getMonth(): int                             │
+│ + getYear(): int                              │
+│ + getDate(): void                             │
+│ - getMonthDays(int): int[]                    │
+│ - isLeapYear(int): boolean                    │
+└───────────────────────────────────────────────┘
