@@ -1,18 +1,6 @@
-import java.util.*;
-static Scanner scanner = new Scanner(System.in);
+package M1A2;
 
-public static void main(String[] args) {
-
-    System.out.print("Enter a credit card number as a long integer: ");
-    long creditCardNumber = scanner.nextLong();
-    creditCard validator = new creditCard();
-
-    if (validator.isValid(creditCardNumber)) System.out.println(creditCardNumber + " is valid");
-    else System.out.println(creditCardNumber + " is not valid");
-
-}
-
-public static class creditCard {
+public class CreditCardValidator {
 
     public boolean isValid(long number) {
 

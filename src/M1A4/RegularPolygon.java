@@ -1,28 +1,17 @@
-import java.util.*;
+package M1A4;
 
-public static void main(String[] args) {
-
-    RegularPolygon polygon1 = new RegularPolygon();
-    RegularPolygon polygon2 = new RegularPolygon(6, 4);
-    RegularPolygon polygon3 = new RegularPolygon(10, 4, 5.6, 7.8);
-
-    System.out.println("Polygon 1 Area:" + polygon1.getArea() + ", Perimeter: " + polygon1.getPerimeter());
-    System.out.println("Polygon 2 Area:" + polygon2.getArea() + ", Perimeter: " + polygon2.getPerimeter());
-    System.out.println("Polygon 3 Area:" + polygon3.getArea() + ", Perimeter: " + polygon3.getPerimeter());
-}
-
-public static class RegularPolygon {
+public class RegularPolygon {
 
     private int n = 3;
     private double side = 1, x = 0, y = 0;
 
-    RegularPolygon() {}
+    public RegularPolygon() {}
 
-    RegularPolygon(int inN, double inSide) {
+    public RegularPolygon(int inN, double inSide) {
         n = inN; side = inSide;
     }
 
-    RegularPolygon(int inN, double inSide, double inX, double inY) {
+    public RegularPolygon(int inN, double inSide, double inX, double inY) {
         n = inN; side = inSide; x = inX; y = inY;
     }
 
