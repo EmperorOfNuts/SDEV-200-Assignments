@@ -1,7 +1,6 @@
 package M2A1;
 
 import java.time.*;
-import java.time.chrono.IsoChronology;
 
 public class MyDate {
 
@@ -22,7 +21,7 @@ public class MyDate {
     public MyDate(int inDay, int inMonth, int inYear) {
         if (inDay > 28) {
             int dayOfMonth = switch (inMonth) {
-                case 2 -> (IsoChronology.INSTANCE.isLeapYear(inYear) ? 29 : 28);
+                case 2 -> (isLeapYear(inYear) ? 29 : 28);
                 case 4, 6, 9, 11 -> 30;
                 default -> 31;
             };
