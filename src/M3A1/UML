@@ -1,0 +1,31 @@
+┌─────────────────────────────────────┐  ┌───────────────────────────────┐
+│          GeometricObject            │  │        Comparable<T>          │
+│           (abstract)                │  │         (interface)           │
+├─────────────────────────────────────┤  ├───────────────────────────────┤
+│ - color: String = "white"           │  │ + compareTo(o: T): int        │
+│ - filled: boolean                   │  └───────────────────────────────┘
+│ - creationDate: Date                │                  △
+├─────────────────────────────────────┤                  │ (implements)
+│ + getColor(): String                │                  │
+│ + setColor(color: String): void     │                  │
+│ + isFilled(): boolean               │                  │
+│ + setFilled(filled: boolean): void  │                  │
+│ + getDateCreated(): Date            │                  │
+│ + getArea(): double                 │                  │
+│ + getPerimeter(): double            │                  │
+└─────────────────────────────────────┘                  │
+               △                                         │
+               │ (extends)                               │
+    ┌──────────┴─────────────────────────────────────────┴─────┐
+    │                         Circle                           │
+    ├──────────────────────────────────────────────────────────┤
+    │ - radius: double                                         │
+    ├──────────────────────────────────────────────────────────┤
+    │ + Circle()                                               │
+    │ + Circle(radius: double)                                 │
+    │ + setRadius(radius: double): void                        │
+    │ + getArea(): double                                      │
+    │ + getPerimeter(): double                                 │
+    │ + compareTo(circle: Circle): int                         │
+    │ + printCircle(): void                                    │
+    └──────────────────────────────────────────────────────────┘
