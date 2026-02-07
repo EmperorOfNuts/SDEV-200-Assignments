@@ -168,14 +168,14 @@ public class TypingInterface extends UIManager {
         textDisplay = new TextArea(currentChallenge.getChallengeText());
         textDisplay.setEditable(false);
         textDisplay.setWrapText(true);
-        textDisplay.setPrefHeight(400);
+        textDisplay.setPrefHeight(500);
         textDisplay.getStyleClass().add("challenge-text");
         textDisplay.setStyle(String.format("-fx-font-size: %dpx;", settings.getFontSize()));
 
         // Input area
         inputArea = new TextArea();
         inputArea.setWrapText(true);
-        inputArea.setPrefHeight(100);
+        inputArea.setPrefHeight(200);
         inputArea.getStyleClass().add("input-text");
         inputArea.setStyle(String.format("-fx-font-size: %dpx;", settings.getFontSize()));
         inputArea.textProperty().addListener((obs, oldText, newText) -> {
@@ -251,9 +251,7 @@ public class TypingInterface extends UIManager {
         int correctChars = 0;
         int totalChars = Math.min(input.length(), originalText.length());
 
-        for (int i = 0; i < totalChars; i++) {
-            if (input.charAt(i) == originalText.charAt(i)) correctChars++;
-        }
+        for (int i = 0; i < totalChars; i++) { if (input.charAt(i) == originalText.charAt(i)) correctChars++; }
 
         double timeInMinutes = (currentChallenge.getTimeLimit() - timeRemaining) / 60.0;
         if (timeInMinutes > 0) {

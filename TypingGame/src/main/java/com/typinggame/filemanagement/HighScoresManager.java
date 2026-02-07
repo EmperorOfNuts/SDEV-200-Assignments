@@ -29,13 +29,6 @@ public class HighScoresManager extends FileManager {
         return instance;
     }
 
-    public static synchronized HighScoresManager getInstance(String filePath) {
-        if (instance == null) {
-            instance = new HighScoresManager(filePath);
-        }
-        return instance;
-    }
-
     @Override
     public void save() throws IOException {
         Gson gson = new GsonBuilder()
@@ -102,13 +95,9 @@ public class HighScoresManager extends FileManager {
         }
     }
 
-    public ScoreRecord getScoreRecord(String challengeType) {
-        return highScores.getOrDefault(challengeType, new ScoreRecord());
-    }
+    public ScoreRecord getScoreRecord(String challengeType) { return highScores.getOrDefault(challengeType, new ScoreRecord()); }
 
-    public Map<String, ScoreRecord> getAllHighScores() {
-        return new HashMap<>(highScores);
-    }
+    public Map<String, ScoreRecord> getAllHighScores() { return new HashMap<>(highScores); }
 
     public void clearHighScores() throws IOException {
         highScores.clear();

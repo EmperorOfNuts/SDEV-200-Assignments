@@ -39,14 +39,6 @@ public abstract class UIManager {
         applyFontSize(scene);
     }
 
-    public void applyInitialFontSize(Pane rootPane) {
-        int fontSize = settings.getFontSize();
-        String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
-
-        rootPane.setStyle(fontSizeStyle);
-        rootPane.applyCss();
-    }
-
     public void applyFontSize(Scene scene) {
         int fontSize = settings.getFontSize();
         String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
@@ -66,23 +58,6 @@ public abstract class UIManager {
             dialogPane.getStylesheets().clear();
             dialogPane.getStylesheets().add(cssUrl.toExternalForm());
         }
-    }
-
-    public Alert createThemedAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        applyThemeToDialog(alert.getDialogPane());
-        return alert;
-    }
-
-    public Alert createThemedAlert(Alert.AlertType type, String title, String header, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        applyThemeToDialog(alert.getDialogPane());
-        return alert;
     }
 
     public void changeFontSize(int delta) {

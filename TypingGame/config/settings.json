@@ -7,6 +7,6 @@
   "customParagraphFile": "",
   "paragraphTimeLimit": 60.0,
   "theme": "dark",
-  "fontSize": 20,
+  "fontSize": 26,
   "filePath": "config/settings.json"
 }
