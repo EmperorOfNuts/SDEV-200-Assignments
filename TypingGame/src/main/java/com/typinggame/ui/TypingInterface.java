@@ -4,7 +4,6 @@ import com.typinggame.challenges.*;
 import com.typinggame.filemanagement.*;
 import com.typinggame.ui.components.*;
 
-
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;

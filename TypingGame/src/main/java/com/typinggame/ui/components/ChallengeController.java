@@ -113,13 +113,9 @@ public class ChallengeController {
         return correctChars;
     }
 
-    public double getTimeRemaining() {
-        return timeRemaining;
-    }
+    public double getTimeRemaining() { return timeRemaining; }
 
-    public void setOnWPMUpdate(Consumer<Double> onWPMUpdate) {
-        this.onWPMUpdate = onWPMUpdate;
-    }
+    public void setOnWPMUpdate(Consumer<Double> onWPMUpdate) { this.onWPMUpdate = onWPMUpdate; }
 
     public void setOnChallengeComplete(Consumer<Double> onChallengeComplete) {
         this.onChallengeComplete = onChallengeComplete;
