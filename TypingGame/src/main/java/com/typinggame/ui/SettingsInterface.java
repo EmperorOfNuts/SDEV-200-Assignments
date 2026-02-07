@@ -6,10 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
-import java.net.URL;
 import java.io.File;
 import java.io.IOException;
-
 
 public class SettingsInterface {
     private final Settings settings;
@@ -35,18 +33,7 @@ public class SettingsInterface {
 
         DialogPane dialogPane = dialog.getDialogPane();
 
-        if (parentScene != null && parentScene.getUserData() instanceof UIManager) {
-            UIManager uiManager = (UIManager) parentScene.getUserData();
-            uiManager.applyThemeToDialog(dialogPane);
-        } else {
-            String theme = settings.getTheme();
-            String cssFile = "/" + theme + "-theme.css";
-            URL cssUrl = getClass().getResource(cssFile);
-            if (cssUrl != null) {
-                dialogPane.getStylesheets().clear();
-                dialogPane.getStylesheets().add(cssUrl.toExternalForm());
-            }
-        }
+        ThemeUtils.applyThemeToDialog(settings, dialogPane);
 
         if (parentScene != null) {
             dialogPane.getStylesheets().addAll(parentScene.getRoot().getStylesheets());
@@ -55,39 +42,35 @@ public class SettingsInterface {
         TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        // Word Challenge Tab
+        // Create tabs
         Tab wordTab = new Tab("Word Challenge");
         wordTab.setClosable(false);
         wordTab.setContent(createWordTabContent(dialog));
 
-        // Sentence Challenge Tab
         Tab sentenceTab = new Tab("Sentence Challenge");
         sentenceTab.setClosable(false);
         sentenceTab.setContent(createSentenceTabContent());
 
-        // Paragraph Challenge Tab
         Tab paragraphTab = new Tab("Paragraph Challenge");
         paragraphTab.setClosable(false);
         paragraphTab.setContent(createParagraphTabContent(dialog));
 
-        // UI Settings Tab
-        Tab uiTab = new Tab("UI Settings");
-        uiTab.setClosable(false);
-        uiTab.setContent(createUITabContent());
-
-        tabPane.getTabs().addAll(wordTab, sentenceTab, paragraphTab, uiTab);
+        tabPane.getTabs().addAll(wordTab, sentenceTab, paragraphTab);
 
         dialogPane.setContent(tabPane);
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
         dialogPane.setPrefSize(700, 600);
 
         dialog.setResultConverter(buttonType -> {
             if (buttonType == ButtonType.OK) {
+                String oldTheme = settings.getTheme(); // Store old theme
                 saveSettings();
                 try {
                     settings.save();
                     showInfoDialog(dialogPane);
+
+                    // Notify parent of theme change
+                    if (!oldTheme.equals(settings.getTheme()) && parentScene != null) { ThemeUtils.applyTheme(settings, parentScene); }
                 } catch (IOException e) {
                     showErrorDialog("Failed to save settings: " + e.getMessage());
                 }
@@ -117,7 +100,6 @@ public class SettingsInterface {
         wordTimeSpinner.setEditable(true);
         wordTimeSpinner.setTooltip(new Tooltip("Time limit for word challenges in seconds"));
 
-        // Add Settings to Grid
         wordGrid.add(wordSettingsLabel, 0, 0, 2, 1);
         wordGrid.add(wordCountLabel, 0, 1);
         wordGrid.add(wordCountSpinner, 1, 1);
@@ -146,7 +128,6 @@ public class SettingsInterface {
         sentenceTimeSpinner.setEditable(true);
         sentenceTimeSpinner.setTooltip(new Tooltip("Time limit for sentence challenges in seconds"));
 
-        // Add Settings to Grid
         sentenceGrid.add(sentenceSettingsLabel, 0, 0, 2, 1);
         sentenceGrid.add(sentenceCountLabel, 0, 1);
         sentenceGrid.add(sentenceCountSpinner, 1, 1);
@@ -173,8 +154,9 @@ public class SettingsInterface {
         paragraphFileField = new TextField(settings.getCustomParagraphFile());
         paragraphFileField.setTooltip(new Tooltip("Path to custom paragraph file (txt), make sure each paragraph is on its own line."));
 
-        // Enable/disable custom paragraphs
-        useCustomParagraphs.selectedProperty().addListener((obs, oldVal, newVal) -> { paragraphFileField.setDisable(!newVal);});
+        useCustomParagraphs.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            paragraphFileField.setDisable(!newVal);
+        });
 
         Button browseButton = new Button("Browse...");
         browseButton.setOnAction(e -> {
@@ -194,7 +176,6 @@ public class SettingsInterface {
         paragraphTimeSpinner.setEditable(true);
         paragraphTimeSpinner.setTooltip(new Tooltip("Time limit for paragraph challenges in seconds"));
 
-        // Add Settings to Grid
         paragraphGrid.add(paragraphSettingsLabel, 0, 0, 3, 1);
         paragraphGrid.add(useCustomParagraphs, 0, 1, 3, 1);
         paragraphGrid.add(paragraphFileLabel, 0, 2);
@@ -204,29 +185,6 @@ public class SettingsInterface {
         paragraphGrid.add(paragraphTimeSpinner, 1, 3);
 
         return new ScrollPane(paragraphGrid);
-    }
-
-    private ScrollPane createUITabContent() {
-        GridPane uiGrid = new GridPane();
-        uiGrid.setHgap(10);
-        uiGrid.setVgap(10);
-        uiGrid.setPadding(new Insets(20));
-
-        Label uiSettingsLabel = new Label("User Interface Settings:");
-        uiSettingsLabel.getStyleClass().add("settings-section");
-
-        Label themeLabel = new Label("Theme (requires restart):");
-        themeCombo = new ComboBox<>();
-        themeCombo.getItems().addAll("dark", "light");
-        themeCombo.setValue(settings.getTheme());
-        themeCombo.setTooltip(new Tooltip("Application color theme (Requires restart)"));
-
-        // Add Settings to Grid
-        uiGrid.add(uiSettingsLabel, 0, 0, 2, 1);
-        uiGrid.add(themeLabel, 0, 1);
-        uiGrid.add(themeCombo, 1, 1);
-
-        return new ScrollPane(uiGrid);
     }
 
     private void saveSettings() {
@@ -239,8 +197,6 @@ public class SettingsInterface {
         settings.setUseCustomParagraphs(useCustomParagraphs.isSelected());
         settings.setCustomParagraphFile(paragraphFileField.getText());
         settings.setParagraphTimeLimit(paragraphTimeSpinner.getValue());
-
-        settings.setTheme(themeCombo.getValue());
     }
 
     private void showInfoDialog(DialogPane dialogPane) {
