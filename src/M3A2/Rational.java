@@ -26,7 +26,7 @@ public class Rational extends Number implements Comparable<Rational> {
     public Rational(long numerator, long denominator) {
         this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
     }
-    
+
     public Rational add(Rational secondRational) {
         BigInteger n = numerator.multiply(secondRational.getDenominator())
                 .add(denominator.multiply(secondRational.getNumerator()));
