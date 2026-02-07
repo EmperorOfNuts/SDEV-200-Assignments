@@ -36,16 +36,13 @@ public abstract class UIManager {
             System.err.println("CSS file not found: " + cssFile);
         }
 
-        // Apply font size dynamically
         applyFontSize(scene);
     }
 
-    // New method: Apply initial font size to Pane
     public void applyInitialFontSize(Pane rootPane) {
         int fontSize = settings.getFontSize();
         String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
 
-        // Apply to the root pane and all its children
         rootPane.setStyle(fontSizeStyle);
         rootPane.applyCss();
     }
@@ -54,7 +51,6 @@ public abstract class UIManager {
         int fontSize = settings.getFontSize();
         String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
 
-        // Apply font size to all text areas and labels
         scene.getRoot().lookupAll(".text-area").forEach(node -> {
             if (node instanceof javafx.scene.control.TextArea) {
                 ((javafx.scene.control.TextArea) node).setStyle(fontSizeStyle);

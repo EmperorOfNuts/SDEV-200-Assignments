@@ -5,8 +5,6 @@ import com.typinggame.filemanagement.Settings;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ParagraphChallenge extends Challenge {
     private boolean useCustomParagraphs;

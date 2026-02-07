@@ -35,20 +35,17 @@ public class TypingInterface extends UIManager {
     public Pane createUI() {
         mainLayout = new BorderPane();
 
-        // Create menu bar
+        // Create each area
         MenuBar menuBar = createMenuBar();
         mainLayout.setTop(menuBar);
 
-        // Create challenge selection panel
         challengeSelection = createChallengeSelection();
         mainLayout.setLeft(challengeSelection);
 
-        // Create game area
         gameArea = new StackPane();
         gameArea.setPadding(new Insets(20));
         mainLayout.setCenter(gameArea);
 
-        // Create stats panel
         VBox statsPanel = createStatsPanel();
         mainLayout.setRight(statsPanel);
 
@@ -111,12 +108,10 @@ public class TypingInterface extends UIManager {
         paragraphBtn.setPrefWidth(150);
         paragraphBtn.setOnAction(e -> startParagraphChallenge());
 
-        // High Scores button at bottom
         Button highScoresBtn = new Button("High Scores");
         highScoresBtn.setPrefWidth(150);
         highScoresBtn.setOnAction(e -> showHighScores());
 
-        // Add spacer to push high scores to bottom
         Pane spacer = new Pane();
         VBox.setVgrow(spacer, Priority.ALWAYS);
 
@@ -169,7 +164,7 @@ public class TypingInterface extends UIManager {
         challengeContainer.setAlignment(Pos.CENTER);
         challengeContainer.setPadding(new Insets(20));
 
-        // Display challenge text
+        // Challenge Text Area
         textDisplay = new TextArea(currentChallenge.getChallengeText());
         textDisplay.setEditable(false);
         textDisplay.setWrapText(true);
@@ -187,7 +182,6 @@ public class TypingInterface extends UIManager {
             checkInput(newText);
         });
 
-        // Control buttons
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
 
@@ -267,7 +261,6 @@ public class TypingInterface extends UIManager {
             wpmLabel.setText(String.format("WPM: %.1f", wpm));
         }
 
-        // Check if challenge is completed
         if (input.equals(originalText)) endChallenge();
     }
 
@@ -287,14 +280,12 @@ public class TypingInterface extends UIManager {
         double timeInMinutes = (currentChallenge.getTimeLimit() - timeRemaining) / 60.0;
         double finalWPM = currentChallenge.calculateWPM(correctChars, timeInMinutes);
 
-        // Update challenge stats
         currentChallenge.setAverageWPM(finalWPM);
         if (finalWPM > currentChallenge.getHighestWPM()) currentChallenge.setHighestWPM(finalWPM);
 
-        // Save results
+        // Save and show results
         currentChallenge.saveResults();
 
-        // Show results
         showResultsDialog(finalWPM);
         inputArea.setDisable(true);
     }
@@ -319,7 +310,6 @@ public class TypingInterface extends UIManager {
         alert.setHeaderText("Congratulations!");
         alert.setContentText(String.format("You completed the challenge with %.1f WPM!", finalWPM));
 
-        // Style the alert dialog
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().addAll(timerLabel.getScene().getRoot().getStylesheets());
 
@@ -335,7 +325,6 @@ public class TypingInterface extends UIManager {
         Dialog<Void> dialog = new Dialog<>();
         dialog.setTitle("High Scores");
 
-        // Style the dialog
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().addAll(timerLabel.getScene().getRoot().getStylesheets());
 
@@ -389,7 +378,6 @@ public class TypingInterface extends UIManager {
         alert.setTitle("Save Error");
         alert.setContentText(message);
 
-        // Style the alert dialog
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().addAll(timerLabel.getScene().getRoot().getStylesheets());
 

@@ -80,7 +80,6 @@ public class SettingsInterface {
         dialogPane.setContent(tabPane);
         dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        // Set preferred size for dialog
         dialogPane.setPrefSize(700, 600);
 
         dialog.setResultConverter(buttonType -> {
