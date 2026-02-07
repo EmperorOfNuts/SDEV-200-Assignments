@@ -15,10 +15,10 @@ public class ParagraphChallenge extends Challenge {
         this.useCustomParagraphs = false;
         this.count = 1;
         this.challengeType = "Paragraph";
-        loadDefaultParagraphs();
+        loadDefaultText();
     }
     
-    private void loadDefaultParagraphs() {
+    protected void loadDefaultText() {
         try {
             this.dictionary = Files.readAllLines(Paths.get("data/defaultParagraphs.txt"));
         } catch (IOException e) {
@@ -35,19 +35,13 @@ public class ParagraphChallenge extends Challenge {
     }
     
     @Override
-    public void configureSettings(Settings settings) {
+    public void configureChallenge(Settings settings) {
         this.useCustomParagraphs = settings.isUseCustomParagraphs();
         this.customParagraphFile = settings.getCustomParagraphFile();
         this.timeLimit = settings.getParagraphTimeLimit();
         
         if (useCustomParagraphs && customParagraphFile != null && !customParagraphFile.isEmpty()) loadCustomParagraphs(customParagraphFile);
-
-        if (!dictionary.isEmpty()) {
-            int randomIndex = (int) (Math.random() * dictionary.size());
-            this.challengeText = dictionary.get(randomIndex);
-        } else {
-            this.challengeText = "No paragraphs available.";
-        }
+        this.challengeText = generateChallengeText(count);
     }
 
     public boolean isUseCustomParagraphs() { return useCustomParagraphs; }

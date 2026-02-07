@@ -139,19 +139,19 @@ public class TypingInterface extends UIManager {
 
     private void startWordChallenge() {
         currentChallenge = new WordChallenge();
-        currentChallenge.configureSettings(settings);
+        currentChallenge.configureChallenge(settings);
         startChallenge();
     }
 
     private void startSentenceChallenge() {
         currentChallenge = new SentenceChallenge();
-        currentChallenge.configureSettings(settings);
+        currentChallenge.configureChallenge(settings);
         startChallenge();
     }
 
     private void startParagraphChallenge() {
         currentChallenge = new ParagraphChallenge();
-        currentChallenge.configureSettings(settings);
+        currentChallenge.configureChallenge(settings);
         startChallenge();
     }
 
@@ -290,7 +290,7 @@ public class TypingInterface extends UIManager {
 
     private void restartChallenge() {
         if (currentChallenge != null) {
-            currentChallenge.configureSettings(settings);
+            currentChallenge.configureChallenge(settings);
             startChallenge();
         }
     }

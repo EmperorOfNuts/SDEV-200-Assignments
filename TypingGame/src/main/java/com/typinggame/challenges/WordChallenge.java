@@ -11,10 +11,10 @@ public class WordChallenge extends Challenge {
         super();
         this.count = 50;
         this.challengeType = "Words";
-    loadDefaultWords();
+    loadDefaultText();
     }
 
-    private void loadDefaultWords() {
+    protected void loadDefaultText() {
         try {
             this.dictionary = Files.readAllLines(Paths.get("data/defaultWords.txt"));
         } catch (IOException e) {
@@ -23,11 +23,11 @@ public class WordChallenge extends Challenge {
     }
     
     @Override
-    public void configureSettings(Settings settings) {
+    public void configureChallenge(Settings settings) {
         this.count = settings.getWordCount();
         this.timeLimit = settings.getWordTimeLimit();
 
-        this.challengeText = generateRandomText(count);
+        this.challengeText = generateChallengeText(count);
     }
 
 }

@@ -3,7 +3,7 @@
   "wordTimeLimit": 60.0,
   "sentenceCount": 10,
   "sentenceTimeLimit": 60.0,
-  "useCustomParagraphs": true,
+  "useCustomParagraphs": false,
   "customParagraphFile": "",
   "paragraphTimeLimit": 60.0,
   "theme": "dark",

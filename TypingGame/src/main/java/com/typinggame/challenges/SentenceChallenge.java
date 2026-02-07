@@ -5,7 +5,6 @@ import com.typinggame.filemanagement.Settings;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
 
 public class SentenceChallenge extends Challenge {
     
@@ -13,10 +12,10 @@ public class SentenceChallenge extends Challenge {
         super();
         this.count = 10;
         this.challengeType = "Sentences";
-        loadDefaultSentences();
+        loadDefaultText();
     }
     
-    private void loadDefaultSentences() {
+    protected void loadDefaultText() {
         try {
             this.dictionary = Files.readAllLines(Paths.get("data/defaultSentences.txt"));
         } catch (IOException e) {
@@ -25,17 +24,11 @@ public class SentenceChallenge extends Challenge {
     }
 
     @Override
-    public void configureSettings(Settings settings) {
+    public void configureChallenge(Settings settings) {
         this.count = settings.getSentenceCount();
         this.timeLimit = settings.getSentenceTimeLimit();
 
-        this.challengeText = generateSentenceText(count);
-    }
-    
-    private String generateSentenceText(int count) {
-        Collections.shuffle(dictionary);
-        
-        return String.join(" ", dictionary.subList(0, Math.min(count, dictionary.size())));
+        this.challengeText = generateChallengeText(count);
     }
 
 }

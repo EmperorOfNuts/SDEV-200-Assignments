@@ -43,8 +43,8 @@ public abstract class Challenge {
     public int getCount() { return count; }
     public void setCount(int count) { this.count = count; }
 
-    public String generateRandomText(int wordCount) {
-        int selectedSize = Math.min(wordCount, dictionary.size());
+    public String generateChallengeText(int count) {
+        int selectedSize = Math.min(count, dictionary.size());
         List<String> selectedWords = new ArrayList<>();
 
         for(int i = 0; i < selectedSize; i++) selectedWords.add(dictionary.get(random.nextInt(0, dictionary.size())));
@@ -52,12 +52,11 @@ public abstract class Challenge {
         return String.join(" ", selectedWords);
     }
 
+    protected abstract void loadDefaultText();
 
-    public abstract void configureSettings(Settings settings);
+    public abstract void configureChallenge(Settings settings);
 
-    public void saveResults() {
-        HighScoresManager.getInstance().saveScore(challengeType, Integer.toString(count), highestWPM, averageWPM);
-    };
+    public void saveResults() { HighScoresManager.getInstance().saveScore(challengeType, Integer.toString(count), highestWPM, averageWPM); };
 
     public double calculateWPM(int correctChars, double timeInMinutes) { return (correctChars / 5.0) / timeInMinutes; }
 }
