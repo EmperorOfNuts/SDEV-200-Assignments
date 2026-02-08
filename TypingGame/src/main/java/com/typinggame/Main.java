@@ -2,7 +2,7 @@ package com.typinggame;
 
 import com.typinggame.filemanagement.Settings;
 import com.typinggame.filemanagement.HighScoresManager;
-import com.typinggame.ui.TypingInterface;
+import com.typinggame.ui.MainInterface;
 import com.typinggame.ui.ThemeUtils;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -27,11 +27,11 @@ public class Main extends Application {
             highScoresManager.createDefaultIfNotExists();
             highScoresManager.load();
 
-            // Initialize TypingInterface
-            TypingInterface typingInterface = new TypingInterface(settings, highScoresManager);
+            // Initialize MainInterface
+            MainInterface typingInterface = new MainInterface(settings, highScoresManager);
             Scene scene = new Scene(typingInterface.createUI(), 1600, 900);
 
-            // Set the scene reference in TypingInterface
+            // Set the scene reference in MainInterface
             typingInterface.setScene(scene); // NEW
 
             // Apply theme AFTER UI is created

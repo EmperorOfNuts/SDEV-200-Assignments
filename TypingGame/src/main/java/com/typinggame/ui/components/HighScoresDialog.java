@@ -13,9 +13,7 @@ public class HighScoresDialog {
         dialog.setTitle("High Scores");
 
         DialogPane dialogPane = dialog.getDialogPane();
-        if (parentScene != null) {
-            dialogPane.getStylesheets().addAll(parentScene.getRoot().getStylesheets());
-        }
+        if (parentScene != null) dialogPane.getStylesheets().addAll(parentScene.getRoot().getStylesheets());
 
         VBox content = new VBox(10);
         content.setPadding(new Insets(20));

@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 
 import java.io.IOException;
 
-public class TypingInterface implements UIComponent {
+public class MainInterface implements UIComponent {
     private Settings settings;
     private HighScoresManager highScoresManager;
     private ChallengeController challengeController;
@@ -22,7 +22,7 @@ public class TypingInterface implements UIComponent {
     private BorderPane mainLayout;
     private Scene currentScene;
 
-    public TypingInterface(Settings settings, HighScoresManager highScoresManager) {
+    public MainInterface(Settings settings, HighScoresManager highScoresManager) {
         this.settings = settings;
         this.highScoresManager = highScoresManager;
     }
@@ -31,7 +31,7 @@ public class TypingInterface implements UIComponent {
     public Pane createUI() {
         mainLayout = new BorderPane();
 
-        challengeController = new ChallengeController(settings);
+        challengeController = new ChallengeController();
         challengePanel = new ChallengePanel(settings, challengeController);
         statsPanel = new StatsPanel(challengeController);
         menuBarManager = new MenuBarManager(settings,
@@ -57,9 +57,7 @@ public class TypingInterface implements UIComponent {
         return mainLayout;
     }
 
-    private void reapplyTheme() { if (currentScene != null) { ThemeUtils.applyTheme(settings, currentScene); } }
-
-    public void setScene(Scene scene) { this.currentScene = scene; }
+    private void reapplyTheme() { if (currentScene != null) ThemeUtils.applyTheme(settings, currentScene); }
 
     private void startWordChallenge() {
         Challenge challenge = new WordChallenge();
@@ -122,6 +120,20 @@ public class TypingInterface implements UIComponent {
         }
     }
 
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setContentText(message);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        Scene currentScene = challengePanel.getScene();
+        if (currentScene != null) {
+            dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
+        }
+
+        alert.showAndWait();
+    }
+
     private void showResultsDialog(double finalWPM) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Challenge Complete");
@@ -137,17 +149,5 @@ public class TypingInterface implements UIComponent {
         alert.showAndWait();
     }
 
-    private void showErrorDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setContentText(message);
-
-        DialogPane dialogPane = alert.getDialogPane();
-        Scene currentScene = challengePanel.getScene();
-        if (currentScene != null) {
-            dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
-        }
-
-        alert.showAndWait();
-    }
+    public void setScene(Scene scene) { this.currentScene = scene; }
 }

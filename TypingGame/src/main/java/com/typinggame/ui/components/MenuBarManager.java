@@ -3,7 +3,6 @@ package com.typinggame.ui.components;
 import com.typinggame.filemanagement.Settings;
 import com.typinggame.ui.ThemeUtils;
 import javafx.scene.control.*;
-import javafx.scene.Scene;
 import java.io.IOException;
 
 public class MenuBarManager {
@@ -15,6 +14,26 @@ public class MenuBarManager {
         this.settings = settings;
         this.onSettingsOpen = onSettingsOpen;
         this.onThemeChange = onThemeChange; // NEW
+    }
+
+    private void toggleTheme() {
+        String newTheme = "dark".equals(settings.getTheme()) ? "light" : "dark";
+        settings.setTheme(newTheme);
+        try {
+            settings.save();
+            if (onThemeChange != null) { onThemeChange.run(); }
+        } catch (IOException e) {
+            System.err.println("Failed to save theme: " + e.getMessage());
+        }
+    }
+
+    private void changeFontSize(int delta) {
+        try {
+            ThemeUtils.changeFontSize(settings, delta);
+            if (onThemeChange != null) { onThemeChange.run(); }
+        } catch (IOException e) {
+            System.err.println("Failed to change font size: " + e.getMessage());
+        }
     }
 
     public MenuBar createMenuBar() {
@@ -44,25 +63,5 @@ public class MenuBarManager {
 
         menuBar.getMenus().addAll(fileMenu, viewMenu);
         return menuBar;
-    }
-
-    private void toggleTheme() {
-        String newTheme = "dark".equals(settings.getTheme()) ? "light" : "dark";
-        settings.setTheme(newTheme);
-        try {
-            settings.save();
-            if (onThemeChange != null) { onThemeChange.run(); }
-        } catch (IOException e) {
-            System.err.println("Failed to save theme: " + e.getMessage());
-        }
-    }
-
-    private void changeFontSize(int delta) {
-        try {
-            ThemeUtils.changeFontSize(settings, delta);
-            if (onThemeChange != null) { onThemeChange.run(); }
-        } catch (IOException e) {
-            System.err.println("Failed to change font size: " + e.getMessage());
-        }
     }
 }

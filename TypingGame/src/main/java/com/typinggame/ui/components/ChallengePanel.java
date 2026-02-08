@@ -77,6 +77,22 @@ public class ChallengePanel extends VBox {
         clear();
     }
 
+    private void restartChallenge() {
+        if (controller.getCurrentChallenge() != null) {
+            Challenge challenge = controller.getCurrentChallenge();
+            displayChallenge(challenge);
+        }
+    }
+
+    private void updateFontSize() {
+        int fontSize = settings.getFontSize();
+        String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
+        textDisplay.setStyle(fontSizeStyle);
+        inputArea.setStyle(fontSizeStyle);
+    }
+
+    public TextArea getInputArea() { return inputArea; }
+
     public void newChallenge() {
         Challenge challenge = controller.getCurrentChallenge();
         inputArea.clear();
@@ -99,20 +115,4 @@ public class ChallengePanel extends VBox {
         inputArea.setDisable(true);
         controller.reset();
     }
-
-    private void restartChallenge() {
-        if (controller.getCurrentChallenge() != null) {
-            Challenge challenge = controller.getCurrentChallenge();
-            displayChallenge(challenge);
-        }
-    }
-
-    private void updateFontSize() {
-        int fontSize = settings.getFontSize();
-        String fontSizeStyle = String.format("-fx-font-size: %dpx;", fontSize);
-        textDisplay.setStyle(fontSizeStyle);
-        inputArea.setStyle(fontSizeStyle);
-    }
-
-    public TextArea getInputArea() { return inputArea; }
 }

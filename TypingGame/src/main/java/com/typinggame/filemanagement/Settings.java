@@ -40,9 +40,7 @@ public class Settings extends FileManager {
         // Create parent directories if they don't exist
         Files.createDirectories(Paths.get(filePath).getParent());
 
-        try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(this, writer);
-        }
+        try (FileWriter writer = new FileWriter(filePath)) { gson.toJson(this, writer); }
     }
 
     @Override
@@ -57,9 +55,7 @@ public class Settings extends FileManager {
 
         try (FileReader reader = new FileReader(filePath)) {
             Settings loaded = gson.fromJson(reader, Settings.class);
-            if (loaded != null) {
-                copyProperties(loaded);
-            }
+            if (loaded != null) copyProperties(loaded);
         }
     }
 
@@ -80,30 +76,30 @@ public class Settings extends FileManager {
         this.fontSize = source.fontSize;
     }
 
-    public int getWordCount() { return wordCount; }
     public void setWordCount(int wordCount) { this.wordCount = wordCount; }
+    public int getWordCount() { return wordCount; }
 
-    public double getWordTimeLimit() { return wordTimeLimit; }
     public void setWordTimeLimit(double wordTimeLimit) { this.wordTimeLimit = wordTimeLimit; }
+    public double getWordTimeLimit() { return wordTimeLimit; }
 
-    public int getSentenceCount() { return sentenceCount; }
     public void setSentenceCount(int sentenceCount) { this.sentenceCount = sentenceCount; }
+    public int getSentenceCount() { return sentenceCount; }
 
-    public double getSentenceTimeLimit() { return sentenceTimeLimit; }
     public void setSentenceTimeLimit(double sentenceTimeLimit) { this.sentenceTimeLimit = sentenceTimeLimit; }
+    public double getSentenceTimeLimit() { return sentenceTimeLimit; }
 
-    public boolean isUseCustomParagraphs() { return useCustomParagraphs; }
     public void setUseCustomParagraphs(boolean useCustomParagraphs) { this.useCustomParagraphs = useCustomParagraphs; }
+    public boolean isUseCustomParagraphs() { return useCustomParagraphs; }
 
-    public String getCustomParagraphFile() { return customParagraphFile; }
     public void setCustomParagraphFile(String customParagraphFile) { this.customParagraphFile = customParagraphFile; }
+    public String getCustomParagraphFile() { return customParagraphFile; }
 
-    public double getParagraphTimeLimit() { return paragraphTimeLimit; }
     public void setParagraphTimeLimit(double paragraphTimeLimit) { this.paragraphTimeLimit = paragraphTimeLimit; }
+    public double getParagraphTimeLimit() { return paragraphTimeLimit; }
 
-    public String getTheme() { return theme; }
     public void setTheme(String theme) { this.theme = theme; }
+    public String getTheme() { return theme; }
 
-    public int getFontSize() { return fontSize; }
     public void setFontSize(int fontSize) { this.fontSize = fontSize; }
+    public int getFontSize() { return fontSize; }
 }

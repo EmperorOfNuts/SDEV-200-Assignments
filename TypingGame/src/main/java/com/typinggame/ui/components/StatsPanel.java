@@ -13,6 +13,22 @@ public class StatsPanel {
         this.controller = controller;
     }
 
+    private void updateTimerDisplay() {
+        double timeRemaining = controller.getTimeRemaining();
+        int minutes = (int) (timeRemaining / 60);
+        int seconds = (int) (timeRemaining % 60);
+        timerLabel.setText(String.format("Time: %02d:%02d", minutes, seconds));
+    }
+
+    public void reset() {
+        timerLabel.setText("Time: --:--");
+        wpmLabel.setText("WPM: 0");
+    }
+
+    public void updateWPM(double wpm) {
+        wpmLabel.setText(String.format("WPM: %.1f", wpm));
+    }
+
     public VBox createStatsPanel() {
         VBox statsPanel = new VBox(10);
         statsPanel.setPadding(new Insets(20));
@@ -38,21 +54,5 @@ public class StatsPanel {
 
         statsPanel.getChildren().addAll(title, timerLabel, wpmLabel);
         return statsPanel;
-    }
-
-    private void updateTimerDisplay() {
-        double timeRemaining = controller.getTimeRemaining();
-        int minutes = (int) (timeRemaining / 60);
-        int seconds = (int) (timeRemaining % 60);
-        timerLabel.setText(String.format("Time: %02d:%02d", minutes, seconds));
-    }
-
-    public void updateWPM(double wpm) {
-        wpmLabel.setText(String.format("WPM: %.1f", wpm));
-    }
-
-    public void reset() {
-        timerLabel.setText("Time: --:--");
-        wpmLabel.setText("WPM: 0");
     }
 }

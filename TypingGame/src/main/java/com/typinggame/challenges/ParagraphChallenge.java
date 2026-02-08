@@ -25,6 +25,16 @@ public class ParagraphChallenge extends Challenge {
             System.err.println("Error loading default paragraphs: " + e.getMessage());
         }
     }
+
+    @Override
+    public void configureChallenge(Settings settings) {
+        this.useCustomParagraphs = settings.isUseCustomParagraphs();
+        this.customParagraphFile = settings.getCustomParagraphFile();
+        this.timeLimit = settings.getParagraphTimeLimit();
+
+        if (useCustomParagraphs && customParagraphFile != null && !customParagraphFile.isEmpty()) loadCustomParagraphs(customParagraphFile);
+        this.challengeText = generateChallengeText(count);
+    }
     
     private void loadCustomParagraphs(String filePath) {
         try {
@@ -33,25 +43,15 @@ public class ParagraphChallenge extends Challenge {
             System.err.println("Error loading custom paragraphs: " + e.getMessage());
         }
     }
-    
-    @Override
-    public void configureChallenge(Settings settings) {
-        this.useCustomParagraphs = settings.isUseCustomParagraphs();
-        this.customParagraphFile = settings.getCustomParagraphFile();
-        this.timeLimit = settings.getParagraphTimeLimit();
-        
-        if (useCustomParagraphs && customParagraphFile != null && !customParagraphFile.isEmpty()) loadCustomParagraphs(customParagraphFile);
-        this.challengeText = generateChallengeText(count);
-    }
 
-    public boolean isUseCustomParagraphs() { return useCustomParagraphs; }
-    public void setUseCustomParagraphs(boolean useCustomParagraphs) { 
-        this.useCustomParagraphs = useCustomParagraphs; 
+    public void setUseCustomParagraphs(boolean useCustomParagraphs) {
+        this.useCustomParagraphs = useCustomParagraphs;
     }
-    
-    public String getCustomParagraphFile() { return customParagraphFile; }
-    public void setCustomParagraphFile(String customParagraphFile) { 
-        this.customParagraphFile = customParagraphFile; 
+    public boolean isUseCustomParagraphs() { return useCustomParagraphs; }
+
+    public void setCustomParagraphFile(String customParagraphFile) {
+        this.customParagraphFile = customParagraphFile;
         if (useCustomParagraphs) loadCustomParagraphs(customParagraphFile);
     }
+    public String getCustomParagraphFile() { return customParagraphFile; }
 }

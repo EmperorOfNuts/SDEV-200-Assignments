@@ -9,9 +9,7 @@ import java.net.URL;
 import java.io.IOException;
 
 public class ThemeUtils {
-    private ThemeUtils() {
-        // Prevent instantiation
-    }
+    private ThemeUtils() {} // Prevent instantiation
 
     public static void applyTheme(Settings settings, Scene scene) {
         if (scene == null || scene.getRoot() == null) return;

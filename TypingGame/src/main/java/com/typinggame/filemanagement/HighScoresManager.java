@@ -22,13 +22,6 @@ public class HighScoresManager extends FileManager {
         this.highScores = new HashMap<>();
     }
 
-    public static synchronized HighScoresManager getInstance() {
-        if (instance == null) {
-            instance = new HighScoresManager("data/highscores.json");
-        }
-        return instance;
-    }
-
     @Override
     public void save() throws IOException {
         Gson gson = new GsonBuilder()
@@ -65,39 +58,17 @@ public class HighScoresManager extends FileManager {
 
     @Override
     public void createDefaultIfNotExists() throws IOException {
-        if (!Files.exists(Paths.get(filePath))) {
-            save(); // Save empty high scores
-        }
+        if (!Files.exists(Paths.get(filePath))) save(); // Save empty high scores
     }
 
-    public void saveScore(String challengeType, String challengeCount, double highestWPM, double averageWPM) {
-        String key = challengeType + " Challenge with " + challengeCount + " " + challengeType.toLowerCase();
-        ScoreRecord record = highScores.getOrDefault(key, new ScoreRecord());
-
-        if (highestWPM > record.getHighestWPM()) {
-            record.setHighestWPM(highestWPM);
-        }
-
-        if (record.getAttempts() == 0) {
-            record.setAverageWPM(averageWPM);
-        } else {
-            double currentTotal = record.getAverageWPM() * record.getAttempts();
-            record.setAverageWPM((currentTotal + averageWPM) / (record.getAttempts() + 1));
-        }
-
-        record.incrementAttempts();
-        highScores.put(key, record);
-
-        try {
-            save();
-        } catch (IOException e) {
-            System.err.println("Failed to save high score: " + e.getMessage());
-        }
+    public static synchronized HighScoresManager getInstance() {
+        if (instance == null) instance = new HighScoresManager("data/highscores.json");
+        return instance;
     }
-
-    public ScoreRecord getScoreRecord(String challengeType) { return highScores.getOrDefault(challengeType, new ScoreRecord()); }
 
     public Map<String, ScoreRecord> getAllHighScores() { return new HashMap<>(highScores); }
+
+    public ScoreRecord getScoreRecord(String challengeType) { return highScores.getOrDefault(challengeType, new ScoreRecord()); }
 
     public void clearHighScores() throws IOException {
         highScores.clear();
@@ -119,6 +90,29 @@ public class HighScoresManager extends FileManager {
         }
     }
 
+    public void saveScore(String challengeType, String challengeCount, double highestWPM, double averageWPM) {
+        String key = challengeType + " Challenge with " + challengeCount + " " + challengeType.toLowerCase();
+        ScoreRecord record = highScores.getOrDefault(key, new ScoreRecord());
+
+        if (highestWPM > record.getHighestWPM()) record.setHighestWPM(highestWPM);
+
+        if (record.getAttempts() == 0) {
+            record.setAverageWPM(averageWPM);
+        } else {
+            double currentTotal = record.getAverageWPM() * record.getAttempts();
+            record.setAverageWPM((currentTotal + averageWPM) / (record.getAttempts() + 1));
+        }
+
+        record.incrementAttempts();
+        highScores.put(key, record);
+
+        try {
+            save();
+        } catch (IOException e) {
+            System.err.println("Failed to save high score: " + e.getMessage());
+        }
+    }
+
     public static class ScoreRecord {
         private double highestWPM;
         private double averageWPM;
@@ -130,14 +124,14 @@ public class HighScoresManager extends FileManager {
             this.attempts = 0;
         }
 
-        public double getHighestWPM() { return highestWPM; }
         public void setHighestWPM(double highestWPM) { this.highestWPM = highestWPM; }
+        public double getHighestWPM() { return highestWPM; }
 
-        public double getAverageWPM() { return averageWPM; }
         public void setAverageWPM(double averageWPM) { this.averageWPM = averageWPM; }
+        public double getAverageWPM() { return averageWPM; }
 
-        public int getAttempts() { return attempts; }
         public void setAttempts(int attempts) { this.attempts = attempts; }
+        public int getAttempts() { return attempts; }
         public void incrementAttempts() { this.attempts++; }
     }
 }

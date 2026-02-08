@@ -1,6 +1,7 @@
 package com.typinggame.ui;
 
 import com.typinggame.filemanagement.Settings;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,72 +14,37 @@ public class SettingsInterface {
     private final Settings settings;
 
     // Settings variables
-    private Spinner<Integer> wordCountSpinner;
     private Spinner<Double> wordTimeSpinner;
-    private Spinner<Integer> sentenceCountSpinner;
     private Spinner<Double> sentenceTimeSpinner;
+    private Spinner<Double> paragraphTimeSpinner;
+    private Spinner<Integer> wordCountSpinner;
+    private Spinner<Integer> sentenceCountSpinner;
     private CheckBox useCustomParagraphs;
     private TextField paragraphFileField;
-    private Spinner<Double> paragraphTimeSpinner;
-    private ComboBox<String> themeCombo;
+
 
     public SettingsInterface(Settings settings) {
         this.settings = settings;
     }
 
-    public void showDialog(Scene parentScene) {
-        Dialog<Void> dialog = new Dialog<>();
-        dialog.setTitle("Settings");
-        dialog.setHeaderText("Configure Typing Challenge Settings");
+    private void showInfoDialog(DialogPane dialogPane) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Settings Saved");
+        alert.setHeaderText(null);
+        alert.setContentText("All settings have been saved successfully.");
 
-        DialogPane dialogPane = dialog.getDialogPane();
+        DialogPane alertDialogPane = alert.getDialogPane();
+        alertDialogPane.getStylesheets().addAll(dialogPane.getStylesheets());
 
-        ThemeUtils.applyThemeToDialog(settings, dialogPane);
+        alert.showAndWait();
+    }
 
-        if (parentScene != null) {
-            dialogPane.getStylesheets().addAll(parentScene.getRoot().getStylesheets());
-        }
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Save Error");
+        alert.setContentText(message);
 
-        TabPane tabPane = new TabPane();
-        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
-        // Create tabs
-        Tab wordTab = new Tab("Word Challenge");
-        wordTab.setClosable(false);
-        wordTab.setContent(createWordTabContent(dialog));
-
-        Tab sentenceTab = new Tab("Sentence Challenge");
-        sentenceTab.setClosable(false);
-        sentenceTab.setContent(createSentenceTabContent());
-
-        Tab paragraphTab = new Tab("Paragraph Challenge");
-        paragraphTab.setClosable(false);
-        paragraphTab.setContent(createParagraphTabContent(dialog));
-
-        tabPane.getTabs().addAll(wordTab, sentenceTab, paragraphTab);
-
-        dialogPane.setContent(tabPane);
-        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        dialogPane.setPrefSize(700, 600);
-
-        dialog.setResultConverter(buttonType -> {
-            if (buttonType == ButtonType.OK) {
-                String oldTheme = settings.getTheme(); // Store old theme
-                saveSettings();
-                try {
-                    settings.save();
-                    showInfoDialog(dialogPane);
-
-                    // Notify parent of theme change
-                    if (!oldTheme.equals(settings.getTheme()) && parentScene != null) { ThemeUtils.applyTheme(settings, parentScene); }
-                } catch (IOException e) {
-                    showErrorDialog("Failed to save settings: " + e.getMessage());
-                }
-            }
-            return null;
-        });
-
-        dialog.showAndWait();
+        alert.showAndWait();
     }
 
     private ScrollPane createWordTabContent(Dialog<Void> dialog) {
@@ -199,23 +165,57 @@ public class SettingsInterface {
         settings.setParagraphTimeLimit(paragraphTimeSpinner.getValue());
     }
 
-    private void showInfoDialog(DialogPane dialogPane) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Settings Saved");
-        alert.setHeaderText(null);
-        alert.setContentText("All settings have been saved successfully.");
+    public void showDialog(Scene parentScene) {
+        Dialog<Void> dialog = new Dialog<>();
+        dialog.setTitle("Settings");
+        dialog.setHeaderText("Configure Typing Challenge Settings");
 
-        DialogPane alertDialogPane = alert.getDialogPane();
-        alertDialogPane.getStylesheets().addAll(dialogPane.getStylesheets());
+        DialogPane dialogPane = dialog.getDialogPane();
 
-        alert.showAndWait();
+        ThemeUtils.applyThemeToDialog(settings, dialogPane);
+
+        if (parentScene != null) dialogPane.getStylesheets().addAll(parentScene.getRoot().getStylesheets());
+
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        // Create tabs
+        Tab wordTab = new Tab("Word Challenge");
+        wordTab.setClosable(false);
+        wordTab.setContent(createWordTabContent(dialog));
+
+        Tab sentenceTab = new Tab("Sentence Challenge");
+        sentenceTab.setClosable(false);
+        sentenceTab.setContent(createSentenceTabContent());
+
+        Tab paragraphTab = new Tab("Paragraph Challenge");
+        paragraphTab.setClosable(false);
+        paragraphTab.setContent(createParagraphTabContent(dialog));
+
+        tabPane.getTabs().addAll(wordTab, sentenceTab, paragraphTab);
+
+        dialogPane.setContent(tabPane);
+        dialogPane.getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        dialogPane.setPrefSize(700, 600);
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == ButtonType.OK) {
+                String oldTheme = settings.getTheme(); // Store old theme
+                saveSettings();
+                try {
+                    settings.save();
+                    showInfoDialog(dialogPane);
+
+                    // Notify parent of theme change
+                    if (!oldTheme.equals(settings.getTheme()) && parentScene != null) { ThemeUtils.applyTheme(settings, parentScene); }
+                } catch (IOException e) {
+                    showErrorDialog("Failed to save settings: " + e.getMessage());
+                }
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
     }
 
-    private void showErrorDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Save Error");
-        alert.setContentText(message);
-
-        alert.showAndWait();
-    }
 }

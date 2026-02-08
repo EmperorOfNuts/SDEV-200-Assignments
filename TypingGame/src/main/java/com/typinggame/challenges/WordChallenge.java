@@ -11,7 +11,7 @@ public class WordChallenge extends Challenge {
         super();
         this.count = 50;
         this.challengeType = "Words";
-    loadDefaultText();
+        loadDefaultText();
     }
 
     protected void loadDefaultText() {
