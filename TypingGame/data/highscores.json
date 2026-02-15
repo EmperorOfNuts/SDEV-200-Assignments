@@ -1,7 +1,22 @@
 {
   "Words Challenge with 50 words": {
     "highestWPM": 372.0,
-    "averageWPM": 220.1,
+    "averageWPM": 184.66436781609195,
+    "attempts": 3
+  },
+  "Sentences Challenge with 10 sentences": {
+    "highestWPM": 356.25,
+    "averageWPM": 356.25,
+    "attempts": 1
+  },
+  "Paragraph Challenge with 1 paragraph": {
+    "highestWPM": 370.8571428571429,
+    "averageWPM": 370.8571428571429,
+    "attempts": 1
+  },
+  "Words Challenge with 100 words": {
+    "highestWPM": 2396.0,
+    "averageWPM": 1359.1818181818182,
     "attempts": 2
   }
 }

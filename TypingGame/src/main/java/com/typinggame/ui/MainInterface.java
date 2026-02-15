@@ -54,6 +54,8 @@ public class MainInterface implements UIComponent {
         challengeController.setOnWPMUpdate(statsPanel::updateWPM);
         challengeController.setOnChallengeComplete(this::endChallenge);
 
+        startWordChallenge();
+
         return mainLayout;
     }
 

@@ -4,7 +4,7 @@
   "sentenceCount": 10,
   "sentenceTimeLimit": 60.0,
   "useCustomParagraphs": false,
-  "customParagraphFile": "",
+  "customParagraphFile": "C:\\Users\\icete\\Desktop\\IvyTech\\SDEV 200\\TypingGame\\data\\customParagraphs.txt",
   "paragraphTimeLimit": 60.0,
   "theme": "dark",
   "fontSize": 32,

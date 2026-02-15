@@ -13,13 +13,15 @@ public class ChallengeController {
     private Timeline timeline;
     private Consumer<Double> onWPMUpdate;
     private Consumer<Double> onChallengeComplete;
+    private boolean isPaused = false;
 
     public ChallengeController() {}
 
     public void setCurrentChallenge(Challenge challenge) {
         this.currentChallenge = challenge;
         if (challenge != null) this.timeRemaining = challenge.getTimeLimit();
-        this.currentInput = ""; // Reset input when new challenge starts
+        this.currentInput = "";
+        this.isPaused = false;
     }
 
     private void calculateAndUpdateWPM() {
@@ -39,7 +41,7 @@ public class ChallengeController {
         int totalChars = Math.min(input.length(), originalText.length());
 
         for (int i = 0; i < totalChars; i++) {
-            if (input.charAt(i) == originalText.charAt(i)) { correctChars++; }
+            if (input.charAt(i) == originalText.charAt(i)) correctChars++;
         }
         return correctChars;
     }
@@ -48,23 +50,28 @@ public class ChallengeController {
 
     public void setOnChallengeComplete(Consumer<Double> onChallengeComplete) { this.onChallengeComplete = onChallengeComplete; }
 
+    public boolean isPaused() { return isPaused; }
+
     public double getTimeRemaining() { return timeRemaining; }
 
-    public Challenge getCurrentChallenge() {
-        return currentChallenge;
-    }
+    public Challenge getCurrentChallenge() { return currentChallenge; }
+
+    public Consumer<Double> getOnWPMUpdate() { return onWPMUpdate; }
 
     public void startTimer() {
         if (timeline != null) timeline.stop();
         currentInput = "";
         timeRemaining = currentChallenge != null ? currentChallenge.getTimeLimit() : 0;
+        isPaused = false;
 
         timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), e -> {
-                    timeRemaining -= 1;
-                    calculateAndUpdateWPM();
+                    if (!isPaused) {
+                        timeRemaining -= 1;
+                        calculateAndUpdateWPM();
 
-                    if (timeRemaining <= 0) endChallenge();
+                        if (timeRemaining <= 0) endChallenge();
+                    }
                 })
         );
 
@@ -73,11 +80,21 @@ public class ChallengeController {
     }
 
     public void pauseTimer() {
-        if (timeline != null) timeline.pause();
+        if (timeline != null) isPaused = !isPaused; // Toggle pause state
     }
 
     public void stopTimer() {
-        if (timeline != null) timeline.stop();
+        if (timeline != null) {
+            timeline.stop();
+            isPaused = false;
+        }
+    }
+
+    public void resetTimer() {
+        if (currentChallenge != null) {
+            timeRemaining = currentChallenge.getTimeLimit();
+            isPaused = false;
+        }
     }
 
     public void endChallenge() {
@@ -96,6 +113,7 @@ public class ChallengeController {
         currentChallenge = null;
         currentInput = "";
         timeRemaining = 0;
+        isPaused = false;
     }
 
     public void updateInput(String input) {

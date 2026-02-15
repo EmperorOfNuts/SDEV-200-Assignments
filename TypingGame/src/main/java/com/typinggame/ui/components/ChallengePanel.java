@@ -2,7 +2,6 @@ package com.typinggame.ui.components;
 
 import com.typinggame.challenges.Challenge;
 import com.typinggame.filemanagement.Settings;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -13,6 +12,8 @@ public class ChallengePanel extends VBox {
     private final ChallengeController controller;
     private TextArea textDisplay;
     private TextArea inputArea;
+    private Button pauseBtn;
+    private Button startBtn;
 
     public ChallengePanel(Settings settings, ChallengeController controller) {
         this.settings = settings;
@@ -38,15 +39,15 @@ public class ChallengePanel extends VBox {
         inputArea.setPrefHeight(200);
         inputArea.getStyleClass().add("input-text");
 
-        // Listen for input changes
+        // Listen for input changes and send to controller
         inputArea.textProperty().addListener((obs, oldText, newText) -> { controller.updateInput(newText); });
 
         // Control Buttons
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
 
-        Button startBtn = new Button("Start");
-        Button pauseBtn = new Button("Pause");
+        startBtn = new Button("Start");
+        pauseBtn = new Button("Pause");
         Button restartBtn = new Button("Restart");
         Button newBtn = new Button("New");
 
@@ -54,11 +55,22 @@ public class ChallengePanel extends VBox {
             controller.startTimer();
             inputArea.setDisable(false);
             inputArea.requestFocus();
+            startBtn.setDisable(true);
+            pauseBtn.setDisable(false);
+            pauseBtn.setText("Pause");
         });
 
         pauseBtn.setOnAction(e -> {
             controller.pauseTimer();
-            inputArea.setDisable(true);
+
+            if (controller.isPaused()) {
+                inputArea.setDisable(true);
+                pauseBtn.setText("Resume");
+            } else {
+                inputArea.setDisable(false);
+                inputArea.requestFocus();
+                pauseBtn.setText("Pause");
+            }
         });
 
         restartBtn.setOnAction(e -> restartChallenge());
@@ -80,8 +92,17 @@ public class ChallengePanel extends VBox {
 
     private void restartChallenge() {
         if (controller.getCurrentChallenge() != null) {
+            // Reset Panel Displays
+            controller.stopTimer();
+            controller.resetTimer();
+            if (controller.getOnWPMUpdate() != null) controller.getOnWPMUpdate().accept(0.0);
+
             Challenge challenge = controller.getCurrentChallenge();
+
             displayChallenge(challenge);
+            startBtn.setDisable(false);
+            pauseBtn.setDisable(true);
+            pauseBtn.setText("Pause");
         }
     }
 
@@ -96,9 +117,14 @@ public class ChallengePanel extends VBox {
 
     public void newChallenge() {
         Challenge challenge = controller.getCurrentChallenge();
-        inputArea.clear();
-        challenge.configureChallenge(settings);
-        displayChallenge(challenge);
+        if (challenge != null) {
+            inputArea.clear();
+            challenge.configureChallenge(settings);
+            displayChallenge(challenge);
+            startBtn.setDisable(false);
+            pauseBtn.setDisable(true);
+            pauseBtn.setText("Pause");
+        }
     }
 
     public void displayChallenge(Challenge challenge) {
@@ -107,6 +133,9 @@ public class ChallengePanel extends VBox {
             inputArea.clear();
             inputArea.setDisable(true);
             updateFontSize();
+            startBtn.setDisable(false);
+            pauseBtn.setDisable(true);
+            pauseBtn.setText("Pause");
         }
     }
 
@@ -115,5 +144,8 @@ public class ChallengePanel extends VBox {
         inputArea.clear();
         inputArea.setDisable(true);
         controller.reset();
+        startBtn.setDisable(false);
+        pauseBtn.setDisable(true);
+        pauseBtn.setText("Pause");
     }
 }
