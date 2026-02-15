@@ -26,9 +26,7 @@ public class ThemeUtils {
         if (cssUrl != null) {
             String cssExternalForm = cssUrl.toExternalForm();
             scene.getRoot().getStylesheets().add(cssExternalForm);
-        } else {
-            System.err.println("CSS file not found: " + cssFile);
-        }
+        } else System.err.println("CSS file not found: " + cssFile);
 
         applyFontSize(settings, scene);
     }

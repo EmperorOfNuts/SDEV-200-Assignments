@@ -31,8 +31,7 @@ public class Main extends Application {
             MainInterface typingInterface = new MainInterface(settings, highScoresManager);
             Scene scene = new Scene(typingInterface.createUI(), 1600, 900);
 
-            // Set the scene reference in MainInterface
-            typingInterface.setScene(scene); // NEW
+            typingInterface.setScene(scene);
 
             // Apply theme AFTER UI is created
             ThemeUtils.applyTheme(settings, scene);
@@ -41,9 +40,7 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-        } catch (IOException e) {
-            showErrorDialog("Failed to load settings or high scores: " + e.getMessage());
-        }
+        } catch (IOException e) { showErrorDialog("Failed to load settings or high scores: " + e.getMessage()); }
     }
 
     private void showErrorDialog(String message) {
@@ -53,7 +50,5 @@ public class Main extends Application {
         alert.showAndWait();
     }
 
-    void main(String[] args) {
-        launch(args);
-    }
+    void main(String[] args) { launch(args); }
 }

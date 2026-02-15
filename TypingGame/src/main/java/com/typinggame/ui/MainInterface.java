@@ -93,11 +93,8 @@ public class MainInterface implements UIComponent {
 
             challenge.saveResults();
 
-            try {
-                highScoresManager.save();
-            } catch (IOException e) {
-                System.err.println("Failed to save high score: " + e.getMessage());
-            }
+            try { highScoresManager.save(); }
+            catch (IOException e) { System.err.println("Failed to save high score: " + e.getMessage()); }
         }
 
         showResultsDialog(finalWPM);
@@ -115,9 +112,7 @@ public class MainInterface implements UIComponent {
 
     private void showHighScores() {
         Scene currentScene = challengePanel.getScene();
-        if (currentScene != null) {
-            HighScoresDialog.show(highScoresManager, currentScene);
-        }
+        if (currentScene != null) HighScoresDialog.show(highScoresManager, currentScene);
     }
 
     private void showErrorDialog(String message) {
@@ -127,10 +122,8 @@ public class MainInterface implements UIComponent {
 
         DialogPane dialogPane = alert.getDialogPane();
         Scene currentScene = challengePanel.getScene();
-        if (currentScene != null) {
-            dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
-        }
 
+        if (currentScene != null) dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
         alert.showAndWait();
     }
 
@@ -142,10 +135,8 @@ public class MainInterface implements UIComponent {
 
         DialogPane dialogPane = alert.getDialogPane();
         Scene currentScene = challengePanel.getScene();
-        if (currentScene != null) {
-            dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
-        }
 
+        if (currentScene != null) dialogPane.getStylesheets().addAll(currentScene.getRoot().getStylesheets());
         alert.showAndWait();
     }
 

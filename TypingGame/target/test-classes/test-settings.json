@@ -1,0 +1,11 @@
+{
+  "wordCount": 75,
+  "wordTimeLimit": 90.0,
+  "sentenceCount": 15,
+  "sentenceTimeLimit": 120.0,
+  "useCustomParagraphs": true,
+  "customParagraphFile": "test-custom-paragraphs.txt",
+  "paragraphTimeLimit": 300.0,
+  "theme": "light",
+  "fontSize": 18
+}

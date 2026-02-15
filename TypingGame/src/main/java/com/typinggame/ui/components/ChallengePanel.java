@@ -2,6 +2,7 @@ package com.typinggame.ui.components;
 
 import com.typinggame.challenges.Challenge;
 import com.typinggame.filemanagement.Settings;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -37,7 +38,7 @@ public class ChallengePanel extends VBox {
         inputArea.setPrefHeight(200);
         inputArea.getStyleClass().add("input-text");
 
-        // Listen for input changes and send to controller
+        // Listen for input changes
         inputArea.textProperty().addListener((obs, oldText, newText) -> { controller.updateInput(newText); });
 
         // Control Buttons

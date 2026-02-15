@@ -15,18 +15,14 @@ public class WordChallenge extends Challenge {
     }
 
     protected void loadDefaultText() {
-        try {
-            this.dictionary = Files.readAllLines(Paths.get("data/defaultWords.txt"));
-        } catch (IOException e) {
-            System.err.println("Error loading default words: " + e.getMessage());
-        }
+        try { this.dictionary = Files.readAllLines(Paths.get("data/defaultWords.txt")); }
+        catch (IOException e) { System.err.println("Error loading default words: " + e.getMessage()); }
     }
     
     @Override
     public void configureChallenge(Settings settings) {
         this.count = settings.getWordCount();
         this.timeLimit = settings.getWordTimeLimit();
-
         this.challengeText = generateChallengeText(count);
     }
 

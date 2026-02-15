@@ -132,9 +132,7 @@ public class SettingsInterface {
                     new FileChooser.ExtensionFilter("Text Files", "*.txt")
             );
             File selectedFile = fileChooser.showOpenDialog(dialog.getOwner());
-            if (selectedFile != null) {
-                paragraphFileField.setText(selectedFile.getAbsolutePath());
-            }
+            if (selectedFile != null) paragraphFileField.setText(selectedFile.getAbsolutePath());
         });
 
         Label paragraphTimeLabel = new Label("Time Limit (seconds):");
@@ -208,10 +206,9 @@ public class SettingsInterface {
 
                     // Notify parent of theme change
                     if (!oldTheme.equals(settings.getTheme()) && parentScene != null) { ThemeUtils.applyTheme(settings, parentScene); }
-                } catch (IOException e) {
-                    showErrorDialog("Failed to save settings: " + e.getMessage());
-                }
+                } catch (IOException e) { showErrorDialog("Failed to save settings: " + e.getMessage()); }
             }
+
             return null;
         });
 

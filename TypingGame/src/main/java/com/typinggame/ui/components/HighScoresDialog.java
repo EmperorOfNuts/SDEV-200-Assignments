@@ -1,6 +1,7 @@
 package com.typinggame.ui.components;
 
 import com.typinggame.filemanagement.HighScoresManager;
+
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

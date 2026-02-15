@@ -32,9 +32,7 @@ public class HighScoresManager extends FileManager {
         // Create parent directories if they don't exist
         Files.createDirectories(Paths.get(filePath).getParent());
 
-        try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(highScores, writer);
-        }
+        try (FileWriter writer = new FileWriter(filePath)) { gson.toJson(highScores, writer); }
     }
 
     @Override
@@ -50,9 +48,7 @@ public class HighScoresManager extends FileManager {
         try (FileReader reader = new FileReader(filePath)) {
             Type type = new TypeToken<Map<String, ScoreRecord>>(){}.getType();
             Map<String, ScoreRecord> loaded = gson.fromJson(reader, type);
-            if (loaded != null) {
-                highScores = loaded;
-            }
+            if (loaded != null) highScores = loaded;
         }
     }
 
@@ -96,9 +92,8 @@ public class HighScoresManager extends FileManager {
 
         if (highestWPM > record.getHighestWPM()) record.setHighestWPM(highestWPM);
 
-        if (record.getAttempts() == 0) {
-            record.setAverageWPM(averageWPM);
-        } else {
+        if (record.getAttempts() == 0) record.setAverageWPM(averageWPM);
+        else {
             double currentTotal = record.getAverageWPM() * record.getAttempts();
             record.setAverageWPM((currentTotal + averageWPM) / (record.getAttempts() + 1));
         }
@@ -106,11 +101,8 @@ public class HighScoresManager extends FileManager {
         record.incrementAttempts();
         highScores.put(key, record);
 
-        try {
-            save();
-        } catch (IOException e) {
-            System.err.println("Failed to save high score: " + e.getMessage());
-        }
+        try { save(); }
+        catch (IOException e) { System.err.println("Failed to save high score: " + e.getMessage()); }
     }
 
     public static class ScoreRecord {

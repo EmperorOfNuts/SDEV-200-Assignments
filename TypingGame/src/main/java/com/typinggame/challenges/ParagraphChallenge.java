@@ -19,11 +19,8 @@ public class ParagraphChallenge extends Challenge {
     }
     
     protected void loadDefaultText() {
-        try {
-            this.dictionary = Files.readAllLines(Paths.get("data/defaultParagraphs.txt"));
-        } catch (IOException e) {
-            System.err.println("Error loading default paragraphs: " + e.getMessage());
-        }
+        try { this.dictionary = Files.readAllLines(Paths.get("data/defaultParagraphs.txt")); }
+        catch (IOException e) { System.err.println("Error loading default paragraphs: " + e.getMessage()); }
     }
 
     @Override
@@ -37,11 +34,8 @@ public class ParagraphChallenge extends Challenge {
     }
     
     private void loadCustomParagraphs(String filePath) {
-        try {
-            this.dictionary = Files.readAllLines(Paths.get(filePath));
-        } catch (IOException e) {
-            System.err.println("Error loading custom paragraphs: " + e.getMessage());
-        }
+        try { this.dictionary = Files.readAllLines(Paths.get(filePath)); }
+        catch (IOException e) { System.err.println("Error loading custom paragraphs: " + e.getMessage()); }
     }
 
     public void setUseCustomParagraphs(boolean useCustomParagraphs) {

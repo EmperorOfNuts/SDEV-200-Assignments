@@ -16,18 +16,14 @@ public class SentenceChallenge extends Challenge {
     }
     
     protected void loadDefaultText() {
-        try {
-            this.dictionary = Files.readAllLines(Paths.get("data/defaultSentences.txt"));
-        } catch (IOException e) {
-            System.err.println("Error loading default sentences: " + e.getMessage());
-        }
+        try { this.dictionary = Files.readAllLines(Paths.get("data/defaultSentences.txt")); }
+        catch (IOException e) { System.err.println("Error loading default sentences: " + e.getMessage()); }
     }
 
     @Override
     public void configureChallenge(Settings settings) {
         this.count = settings.getSentenceCount();
         this.timeLimit = settings.getSentenceTimeLimit();
-
         this.challengeText = generateChallengeText(count);
     }
 

@@ -13,8 +13,7 @@ public class ChallengeSelector {
     private final Runnable onParagraphChallenge;
     private final Runnable onHighScores;
 
-    public ChallengeSelector(Runnable onWordChallenge, Runnable onSentenceChallenge,
-                             Runnable onParagraphChallenge, Runnable onHighScores) {
+    public ChallengeSelector(Runnable onWordChallenge, Runnable onSentenceChallenge, Runnable onParagraphChallenge, Runnable onHighScores) {
         this.onWordChallenge = onWordChallenge;
         this.onSentenceChallenge = onSentenceChallenge;
         this.onParagraphChallenge = onParagraphChallenge;

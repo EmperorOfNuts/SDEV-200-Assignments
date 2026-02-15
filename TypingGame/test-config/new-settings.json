@@ -1,0 +1,12 @@
+{
+  "wordCount": 50,
+  "wordTimeLimit": 60.0,
+  "sentenceCount": 10,
+  "sentenceTimeLimit": 60.0,
+  "useCustomParagraphs": false,
+  "customParagraphFile": "",
+  "paragraphTimeLimit": 60.0,
+  "theme": "dark",
+  "fontSize": 26,
+  "filePath": "test-config\\new-settings.json"
+}

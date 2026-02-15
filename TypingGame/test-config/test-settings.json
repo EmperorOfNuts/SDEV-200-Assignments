@@ -1,0 +1,12 @@
+{
+  "wordCount": 100,
+  "wordTimeLimit": 60.0,
+  "sentenceCount": 10,
+  "sentenceTimeLimit": 60.0,
+  "useCustomParagraphs": true,
+  "customParagraphFile": "data/custom.txt",
+  "paragraphTimeLimit": 60.0,
+  "theme": "light",
+  "fontSize": 26,
+  "filePath": "test-config/test-settings.json"
+}

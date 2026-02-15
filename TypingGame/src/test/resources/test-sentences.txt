@@ -1,0 +1,5 @@
+The quick brown fox jumps over the lazy dog.
+Java is a popular programming language.
+Testing is an important part of software development.
+The sun sets in the west.
+Coding requires practice and patience.

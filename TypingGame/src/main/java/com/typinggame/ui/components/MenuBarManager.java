@@ -2,6 +2,7 @@ package com.typinggame.ui.components;
 
 import com.typinggame.filemanagement.Settings;
 import com.typinggame.ui.ThemeUtils;
+
 import javafx.scene.control.*;
 import java.io.IOException;
 
@@ -22,18 +23,14 @@ public class MenuBarManager {
         try {
             settings.save();
             if (onThemeChange != null) { onThemeChange.run(); }
-        } catch (IOException e) {
-            System.err.println("Failed to save theme: " + e.getMessage());
-        }
+        } catch (IOException e) { System.err.println("Failed to save theme: " + e.getMessage()); }
     }
 
     private void changeFontSize(int delta) {
         try {
             ThemeUtils.changeFontSize(settings, delta);
             if (onThemeChange != null) { onThemeChange.run(); }
-        } catch (IOException e) {
-            System.err.println("Failed to change font size: " + e.getMessage());
-        }
+        } catch (IOException e) { System.err.println("Failed to change font size: " + e.getMessage());}
     }
 
     public MenuBar createMenuBar() {

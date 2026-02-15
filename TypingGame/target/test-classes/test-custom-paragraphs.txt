@@ -1,0 +1,2 @@
+This is a custom paragraph that users can provide. The application should load this file and use its contents for paragraph challenges.
+Each paragraph is separated by a blank line. This allows users to have multiple paragraphs to choose from in their custom file.
