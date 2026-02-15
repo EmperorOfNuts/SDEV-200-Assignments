@@ -1,12 +1,12 @@
 {
-  "wordCount": 50,
-  "wordTimeLimit": 60.0,
-  "sentenceCount": 10,
-  "sentenceTimeLimit": 60.0,
-  "useCustomParagraphs": false,
+  "wordCount": 100,
+  "wordTimeLimit": 120.0,
+  "sentenceCount": 20,
+  "sentenceTimeLimit": 30.0,
+  "useCustomParagraphs": true,
   "customParagraphFile": "C:\\Users\\icete\\Desktop\\IvyTech\\SDEV 200\\TypingGame\\data\\customParagraphs.txt",
-  "paragraphTimeLimit": 60.0,
+  "paragraphTimeLimit": 240.0,
   "theme": "dark",
-  "fontSize": 32,
+  "fontSize": 24,
   "filePath": "config/settings.json"
 }
