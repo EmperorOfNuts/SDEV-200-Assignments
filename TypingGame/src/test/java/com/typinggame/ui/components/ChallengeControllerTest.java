@@ -27,7 +27,6 @@ class ChallengeControllerTest {
         new JFXPanel();
     }
 
-
     @BeforeEach
     void setUp() {
         controller = new ChallengeController();
