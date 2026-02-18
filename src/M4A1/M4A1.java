@@ -35,7 +35,6 @@ public static boolean checkGroupingSymbols(String filename) throws IOException {
                     continue;
                 }
 
-
                 // Handle Comments
                 if (ch == '/' && i + 1 < line.length()) {
                     if (line.charAt(i + 1) == '/') break;
