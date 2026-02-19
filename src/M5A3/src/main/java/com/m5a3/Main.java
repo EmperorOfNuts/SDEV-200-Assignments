@@ -1,4 +1,4 @@
-package com.m5a3;
+package M5A3.src.main.java.com.m5a3;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;

@@ -1,7 +1,5 @@
 package M3A2;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.math.BigInteger;
 import java.math.BigDecimal;
 import java.util.Scanner;

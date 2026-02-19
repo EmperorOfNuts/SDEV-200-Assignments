@@ -1,4 +1,4 @@
-package com.m5a2;
+package M5A2.src.main.java.com.m5a2;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
