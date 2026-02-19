@@ -102,18 +102,14 @@ public class Main extends Application {
     private void initializeDB() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("Driver loaded");
 
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost/M6A1?useSSL=false&serverTimezone=UTC",
                     "root",
                     "IGotThisFAHH6769!");
-            System.out.println("Database connected");
 
             statement = connection.createStatement();
-
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             labelStatus.setText("Database connection error: " + ex.getMessage());
             ex.printStackTrace();
         }
