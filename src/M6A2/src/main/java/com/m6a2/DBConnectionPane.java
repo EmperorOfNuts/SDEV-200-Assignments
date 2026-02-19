@@ -1,4 +1,4 @@
-package M6A2.src.main.java.com.m6a1;
+package M6A2.src.main.java.com.m6a2;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -48,8 +48,8 @@ public class DBConnectionPane extends VBox {
         gridPane.add(new Label("Password"), 0, 3);
         gridPane.add(Password, 1, 3);
 
-        Button btnClose = new Button("Close Dialog");
-        btnClose.setOnAction(e -> {
+        Button Close = new Button("Close Dialog");
+        Close.setOnAction(e -> {
             getScene().getWindow().hide();
         });
 
@@ -58,7 +58,7 @@ public class DBConnectionPane extends VBox {
         // Buttons
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.getChildren().addAll(Connect, btnClose);
+        buttonBox.getChildren().addAll(Connect, Close);
 
         getChildren().addAll(lblTitle, gridPane, labelStatus, buttonBox);
     }

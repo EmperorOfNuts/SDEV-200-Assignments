@@ -1,4 +1,4 @@
-package M6A2.src.main.java.com.m6a1;
+package M6A2.src.main.java.com.m6a2;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
