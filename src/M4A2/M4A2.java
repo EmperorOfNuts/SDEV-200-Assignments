@@ -26,8 +26,12 @@ public static int countKeywords(File file) throws Exception {
     int count = 0;
 
     try (Scanner input = new Scanner(file)) {
+
+        System.out.println("The program is:");
+
         while (input.hasNextLine()) {
             String line = input.nextLine();
+            System.out.println(line);
             count += processLine(line, keywordSet);
         }
     }
@@ -45,7 +49,6 @@ private static int processLine(String line, Set<String> keywordSet) {
         if (token.startsWith("//")) break; // Break at comment lines
         if (token.startsWith("\"") || token.startsWith("'")) continue; // Skip anything in quotes
         String cleanToken = token.replaceAll("[^a-zA-Z0-9_]", ""); // Remove trash such as punctuation
-
         if (keywordSet.contains(cleanToken)) count++;
     }
 

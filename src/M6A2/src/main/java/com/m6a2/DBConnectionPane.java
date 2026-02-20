@@ -11,13 +11,14 @@ import javafx.scene.text.FontWeight;
 import java.sql.*;
 
 public class DBConnectionPane extends VBox {
-    private final TextField Driver = new TextField("com.mysql.cj.jdbc.Driver");
-    private final TextField Url = new TextField("jdbc:mysql://localhost/M6A2");
+    private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final String DATABASE_URL = "jdbc:mysql://localhost/M6A2";
+
     private final TextField Username = new TextField("constellation");
-    private final PasswordField Password = new PasswordField();
+    private final PasswordField Password = new PasswordField(); // IAmCeleste222!
     private final Label labelStatus = new Label("Not connected");
     private final Button Connect = new Button("Connect to DB");
-    
+
     private Connection connection;
 
     public DBConnectionPane() {
@@ -36,17 +37,12 @@ public class DBConnectionPane extends VBox {
         gridPane.setVgap(10);
         gridPane.setAlignment(Pos.CENTER);
 
-        gridPane.add(new Label("JDBC Driver"), 0, 0);
-        gridPane.add(Driver, 1, 0);
+        // Removed Driver and URL rows, kept only Username and Password
+        gridPane.add(new Label("Username"), 0, 0);
+        gridPane.add(Username, 1, 0);
 
-        gridPane.add(new Label("Database URL"), 0, 1);
-        gridPane.add(Url, 1, 1);
-
-        gridPane.add(new Label("Username"), 0, 2);
-        gridPane.add(Username, 1, 2);
-
-        gridPane.add(new Label("Password"), 0, 3);
-        gridPane.add(Password, 1, 3);
+        gridPane.add(new Label("Password"), 0, 1);
+        gridPane.add(Password, 1, 1);
 
         Button Close = new Button("Close Dialog");
         Close.setOnAction(e -> {
@@ -65,15 +61,15 @@ public class DBConnectionPane extends VBox {
 
     private void connectToDB() {
         try {
-            Class.forName(Driver.getText().trim());
+            Class.forName(JDBC_DRIVER);
 
             connection = DriverManager.getConnection(
-                    Url.getText().trim(),
+                    DATABASE_URL,
                     Username.getText().trim(),
                     Password.getText()
             );
 
-            labelStatus.setText("Connected to " + Url.getText().trim());
+            labelStatus.setText("Connected to " + DATABASE_URL);
             labelStatus.setStyle("-fx-text-fill: green;");
 
         } catch (Exception ex) {
