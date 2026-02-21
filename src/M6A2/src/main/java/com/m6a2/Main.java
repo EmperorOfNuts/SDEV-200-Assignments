@@ -197,7 +197,6 @@ public class Main extends Application {
     public void stop() {
         try {
             if (connection != null && !connection.isClosed()) connection.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
