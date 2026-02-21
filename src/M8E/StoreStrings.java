@@ -4,34 +4,22 @@ import java.util.ArrayList;
 
 public class StoreStrings {
 	
-	public static int count(ArrayList <Integer> words)
-    {
+	public static int count(ArrayList<String> words) {
         int lSize = 1;
-        for(String i : words)
-        {
-            lSize++;
-        }
+        for(String _ : words) lSize++;
         
 		return lSize;
-    
     }
 	
-	public static boolean duplicateString(ArrayList <String> words) {
-		boolean isDuplicateString = False;
+	public static boolean duplicateString(ArrayList<String> words) {
+		boolean isDuplicateString = false;
+		ArrayList<String> items = new ArrayList<>();
 		
-		ArrayList<> items = new ArrayList<String>();
-		
-        for(String word : words)
-        {
-            if (items.contains(word)) {
-            	isDuplicateString = True;
-            }else {
-            	items.add(word);
-            }
+        for(String word : words) {
+            if (items.contains(word)) isDuplicateString = true;
+            else items.add(word);
         }
-		
-		
+
 		return isDuplicateString;
-		
 	}
 }
