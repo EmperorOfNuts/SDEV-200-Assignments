@@ -14,7 +14,7 @@ public class DBConnectionPane extends VBox {
     private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String DATABASE_URL = "jdbc:mysql://localhost/M6A2";
 
-    private final TextField Username = new TextField("constellation");
+    private final TextField Username = new TextField("Constellation");
     private final PasswordField Password = new PasswordField(); // IAmCeleste222!
     private final Label labelStatus = new Label("Not connected");
     private final Button Connect = new Button("Connect to DB");

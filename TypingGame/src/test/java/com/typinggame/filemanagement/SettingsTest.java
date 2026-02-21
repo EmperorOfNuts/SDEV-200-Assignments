@@ -21,7 +21,7 @@ class SettingsTest {
         testConfigPath = Paths.get("test-config");
         Files.createDirectories(testConfigPath);
 
-        settings = new Settings(testConfigPath.toString() + "/test-settings.json");
+        settings = new Settings(testConfigPath + "/test-settings.json");
     }
 
     @Test
@@ -52,8 +52,8 @@ class SettingsTest {
         settings.setUseCustomParagraphs(true);
         assertTrue(settings.isUseCustomParagraphs());
 
-        settings.setCustomParagraphFile("custom.txt");
-        assertEquals("custom.txt", settings.getCustomParagraphFile());
+        settings.setCustomParagraphFile("data/customParagraphs.txt");
+        assertEquals("data/customParagraphs.txt", settings.getCustomParagraphFile());
 
         settings.setParagraphTimeLimit(300.0);
         assertEquals(300.0, settings.getParagraphTimeLimit());
@@ -71,7 +71,7 @@ class SettingsTest {
         settings.setWordCount(100);
         settings.setTheme("light");
         settings.setUseCustomParagraphs(true);
-        settings.setCustomParagraphFile("data/custom.txt");
+        settings.setCustomParagraphFile("data/customParagraphs.txt");
 
         // Save settings
         settings.save();
@@ -85,7 +85,7 @@ class SettingsTest {
         assertEquals(100, loadedSettings.getWordCount());
         assertEquals("light", loadedSettings.getTheme());
         assertTrue(loadedSettings.isUseCustomParagraphs());
-        assertEquals("data/custom.txt", loadedSettings.getCustomParagraphFile());
+        assertEquals("data/customParagraphs.txt", loadedSettings.getCustomParagraphFile());
     }
 
     @Test

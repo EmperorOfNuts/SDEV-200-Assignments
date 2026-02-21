@@ -4,7 +4,7 @@
   "sentenceCount": 10,
   "sentenceTimeLimit": 60.0,
   "useCustomParagraphs": true,
-  "customParagraphFile": "data/custom.txt",
+  "customParagraphFile": "data/customParagraphs.txt",
   "paragraphTimeLimit": 60.0,
   "theme": "light",
   "fontSize": 26,
