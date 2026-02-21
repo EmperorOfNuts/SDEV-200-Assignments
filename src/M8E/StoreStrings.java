@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class StoreStrings {
 	
 	public static int count(ArrayList<String> words) {
-        int lSize = 1;
+        int lSize = 0;
         for(String _ : words) lSize++;
         
 		return lSize;
